@@ -44,7 +44,7 @@ int main()
 
 ### Documentation
 
-This readme file and utility should be easily understandable. Please feel free to contact me
+This readme file and C++ class should be easily understandable. Please feel free to contact me
 if you would like to have changes made to the code.
 
 
