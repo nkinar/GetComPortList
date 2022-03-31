@@ -4,7 +4,7 @@ A simple C++ class for enumerating COM ports on a computer.  Useful
 for embedded programming or for communication with USB-to-serial
 bridge devices.
 
-![Example Windows Run](./images/example-win.jpg)
+![Example Windows Run](./images/example-win.jpeg)
 
 
 ## Motivation
