@@ -14,7 +14,7 @@ for `Windows`, `Linux` and `Mac OS X`.
 
 ## Getting Started
 
-Uses the `C++ 17` standard library.
+Uses the `C++17` standard library.
 
 
 ### Example Usage
