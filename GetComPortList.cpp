@@ -1,6 +1,5 @@
 /*
 Copyright © 2022 Nicholas J. Kinar
-
 Permission is hereby granted, free of charge, to any person
 obtaining a copy of this software and associated documentation
 files (the “Software”), to deal in the Software without
@@ -26,6 +25,7 @@ OTHER DEALINGS IN THE SOFTWARE.
 #include <cstdint>
 #include <filesystem>
 #include <cstdint>
+#include <algorithm>
 #if defined (_WIN32) || defined( _WIN64)
 #include <Windows.h>
 #endif
@@ -41,7 +41,6 @@ OTHER DEALINGS IN THE SOFTWARE.
 
 /*
 A simple class to enumerate COM ports on Windows, Linux and Mac OS X
-
 REFERENCES:
 https://stackoverflow.com/questions/2674048/what-is-proper-way-to-detect-all-available-serial-ports-on-windows
 https://stackoverflow.com/questions/15342804/c-linux-detect-all-serial-ports
@@ -72,22 +71,21 @@ std::vector<std::string> GetComPortList::get_list_serial_ports()
 #endif
 #if defined (__linux__)
 	namespace fs = std::filesystem;
-	const std::string DEV_PATH = "/dev/serial/by-id";
-	try
-	{
-		fs::path p(DEV_PATH);
-		if (!fs::exists(DEV_PATH)) return port_list;
-		for (fs::directory_entry de: fs::directory_iterator(p))
-		{
-			if (fs::is_symlink(de.symlink_status()))
-			{
-				fs::path symlink_points_at = fs::read_symlink(de);
-				fs::path canonical_path = fs::canonical(symlink_points_at);
-				port_list.push_back(canonical_path.generic_string());
-			}
-		}
-	}
-	catch (const fs::filesystem_error &ex) {}
+    const std::string DEV_PATH = "/dev/serial/by-id";
+    try
+    {
+        fs::path p(DEV_PATH);
+        if (!fs::exists(DEV_PATH)) return port_list;
+        for (fs::directory_entry de: fs::directory_iterator(p))
+        {
+            if (fs::is_symlink(de.symlink_status()))
+            {
+                fs::path symlink_points_at = fs::read_symlink(de);
+                port_list.push_back(symlink_points_at.filename());
+            }
+        }
+    }
+    catch (const fs::filesystem_error &ex) {}
 #endif
 #if defined(__APPLE__)
 	namespace fs = std::filesystem;
