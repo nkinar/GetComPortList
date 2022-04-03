@@ -91,17 +91,20 @@ std::vector<std::string> GetComPortList::get_list_serial_ports()
 	namespace fs = std::filesystem;
 	const std::string DEV_PATH = "/dev";
 	const std::regex base_regex(R"(\/dev\/(tty|cu)\..*)");
-	fs::path p(DEV_PATH);
-	if (!fs::exists(DEV_PATH)) return port_list;
-	for (fs::directory_entry de: fs::directory_iterator(p))
-	{
-		fs::path canonical_path = fs::canonical(de);
-		std::string name = canonical_path.generic_string();
-		std::smatch res;
-		std::regex_search(name, res,  base_regex);
-		if(res.empty()) continue;
-		port_list.push_back(canonical_path.generic_string());
-	}
+    try
+    {
+        fs::path p(DEV_PATH);
+        if (!fs::exists(DEV_PATH)) return port_list;
+        for (fs::directory_entry de: fs::directory_iterator(p)) {
+            fs::path canonical_path = fs::canonical(de);
+            std::string name = canonical_path.generic_string();
+            std::smatch res;
+            std::regex_search(name, res, base_regex);
+            if (res.empty()) continue;
+            port_list.push_back(canonical_path.generic_string());
+        }
+    }
+    catch (const fs::filesystem_error &ex) {}
 #endif
 	std::sort(port_list.begin(), port_list.end());
 	return port_list;
