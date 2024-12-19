@@ -54,4 +54,4 @@ if you would like to have changes made to the code.
 
 ## Authors
 
-* **Nicholas J. Kinar (<n.kinar@usask.ca>)**
+**Nicholas J. Kinar **
