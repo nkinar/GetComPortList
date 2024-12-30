@@ -81,7 +81,7 @@ std::vector<std::string> GetComPortList::get_list_serial_ports()
             if (fs::is_symlink(de.symlink_status()))
             {
                 fs::path symlink_points_at = fs::read_symlink(de);
-                port_list.push_back(symlink_points_at.filename());
+                port_list.push_back(std::string("/dev/")+symlink_points_at.filename().c_str());
             }
         }
     }
