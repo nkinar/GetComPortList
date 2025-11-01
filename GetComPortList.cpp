@@ -33,6 +33,7 @@ OTHER DEALINGS IN THE SOFTWARE.
 #if defined(__APPLE__)
 #include <stdio.h>
 #include <regex>
+#include <filesystem>
 #endif
 #include "GetComPortList.h"
 
