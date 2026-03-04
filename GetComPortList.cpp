@@ -25,7 +25,7 @@ OTHER DEALINGS IN THE SOFTWARE.
 #include <cstdint>
 #include <algorithm>
 #if defined (_WIN32) || defined( _WIN64)
-#include <Windows.h>
+#include <windows.h>
 #endif
 #if defined (__linux__)
 #include <filesystem>
